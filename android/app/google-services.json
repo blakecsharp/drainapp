@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "122956323683",
+    "project_id": "drain-app-database",
+    "storage_bucket": "drain-app-database.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122956323683:android:a22e60ebeafcc526d15156",
+        "android_client_info": {
+          "package_name": "com.flutterflow.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122956323683-nlc3mopd71o8shcbffhp9cqnl7ns6fjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwXClvtBqjQBY_zKMuGcWscDsDOpghO0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122956323683-nlc3mopd71o8shcbffhp9cqnl7ns6fjk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "122956323683-mgvlscenr907mq9632rlv4tosad36muj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.flutterflow.test"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
