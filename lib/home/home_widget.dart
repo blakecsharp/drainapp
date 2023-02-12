@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../contacts/contacts_widget.dart';
 import '../drain_diary/drain_diary_widget.dart';
 import '../f_a_qs/f_a_qs_widget.dart';
@@ -43,227 +44,246 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: AppBar(
-          backgroundColor: Color(0xFF8C1515),
-          automaticallyImplyLeading: false,
-          actions: [],
-          flexibleSpace: FlexibleSpaceBar(
-            title: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
+    return StreamBuilder<UsersRecord>(
+      stream: UsersRecord.getDocument(currentUserReference!),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircularProgressIndicator(
+                color: FlutterFlowTheme.of(context).primaryColor,
+              ),
+            ),
+          );
+        }
+        final homeUsersRecord = snapshot.data!;
+        return Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(100),
+            child: AppBar(
+              backgroundColor: Color(0xFF8C1515),
+              automaticallyImplyLeading: false,
+              actions: [],
+              flexibleSpace: FlexibleSpaceBar(
+                title: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 14),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
+                        child: Text(
+                          'Home',
+                          style: FlutterFlowTheme.of(context).title2.override(
+                                fontFamily: 'Outfit',
+                                color: Colors.white,
+                                fontSize: 30,
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                centerTitle: true,
+                expandedTitleScale: 1.0,
+              ),
+              elevation: 2,
+            ),
+          ),
+          body: SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(24, 0, 0, 0),
-                    child: Text(
-                      'Home',
-                      style: FlutterFlowTheme.of(context).title2.override(
-                            fontFamily: 'Outfit',
-                            color: Colors.white,
-                            fontSize: 30,
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Image.asset(
+                      'assets/images/Logo.png',
+                      width: 68.1,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DrainDiaryWidget(),
                           ),
+                        );
+                      },
+                      text: 'My Drain Diary \n\n',
+                      icon: Icon(
+                        Icons.menu_book_outlined,
+                        size: 60,
+                      ),
+                      options: FFButtonOptions(
+                        width: 130,
+                        height: 100,
+                        color: Color(0xFF984D4D),
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Outfit',
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ContactsWidget(),
+                          ),
+                        );
+                      },
+                      text: 'Contacts',
+                      icon: Icon(
+                        Icons.phone,
+                        size: 15,
+                      ),
+                      options: FFButtonOptions(
+                        width: 130,
+                        height: 40,
+                        color: Color(0x7A0A0000),
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GeneralCareWidget(),
+                          ),
+                        );
+                      },
+                      text: 'Drain Care',
+                      icon: FaIcon(
+                        FontAwesomeIcons.handHoldingWater,
+                      ),
+                      options: FFButtonOptions(
+                        width: 130,
+                        height: 40,
+                        color: Color(0x7A0A0000),
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FAQsWidget(),
+                          ),
+                        );
+                      },
+                      text: 'FAQs',
+                      icon: FaIcon(
+                        FontAwesomeIcons.solidQuestionCircle,
+                      ),
+                      options: FFButtonOptions(
+                        width: 130,
+                        height: 40,
+                        color: Color(0x7A0A0000),
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(100, 20, 100, 20),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        await signOut();
+                        await Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WelcomeWidget(),
+                          ),
+                          (r) => false,
+                        );
+                      },
+                      text: 'Reset App ',
+                      options: FFButtonOptions(
+                        width: 130,
+                        height: 40,
+                        color: Color(0x7A0A0000),
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            centerTitle: true,
-            expandedTitleScale: 1.0,
           ),
-          elevation: 2,
-        ),
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                child: Image.asset(
-                  'assets/images/Logo.png',
-                  width: 68.1,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DrainDiaryWidget(),
-                      ),
-                    );
-                  },
-                  text: 'My Drain Diary \n\n',
-                  icon: Icon(
-                    Icons.menu_book_outlined,
-                    size: 60,
-                  ),
-                  options: FFButtonOptions(
-                    width: 130,
-                    height: 100,
-                    color: Color(0xFF984D4D),
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Outfit',
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              if (!FFAppState().nonstanford)
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ContactsWidget(),
-                        ),
-                      );
-                    },
-                    text: 'Contacts',
-                    icon: Icon(
-                      Icons.phone,
-                      size: 15,
-                    ),
-                    options: FFButtonOptions(
-                      width: 130,
-                      height: 40,
-                      color: Color(0x7A0A0000),
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => GeneralCareWidget(),
-                      ),
-                    );
-                  },
-                  text: 'Drain Care',
-                  icon: FaIcon(
-                    FontAwesomeIcons.handHoldingWater,
-                  ),
-                  options: FFButtonOptions(
-                    width: 130,
-                    height: 40,
-                    color: Color(0x7A0A0000),
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FAQsWidget(),
-                      ),
-                    );
-                  },
-                  text: 'FAQs',
-                  icon: FaIcon(
-                    FontAwesomeIcons.solidQuestionCircle,
-                  ),
-                  options: FFButtonOptions(
-                    width: 130,
-                    height: 40,
-                    color: Color(0x7A0A0000),
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(100, 20, 100, 20),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    await signOut();
-                    await Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WelcomeWidget(),
-                      ),
-                      (r) => false,
-                    );
-                  },
-                  text: 'Reset App ',
-                  options: FFButtonOptions(
-                    width: 130,
-                    height: 40,
-                    color: Color(0x7A0A0000),
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
-                        ),
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

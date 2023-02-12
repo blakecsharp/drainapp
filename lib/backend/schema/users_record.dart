@@ -33,6 +33,14 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'surgery_date')
   DateTime? get surgeryDate;
 
+  @BuiltValueField(wireName: 'agreed_to_terms')
+  bool? get agreedToTerms;
+
+  @BuiltValueField(wireName: 'stanford_affiliated')
+  bool? get stanfordAffiliated;
+
+  BuiltList<DrainStruct>? get drains;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -44,7 +52,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..uid = ''
     ..phoneNumber = ''
     ..userDrainNumber = 0
-    ..surgeon = '';
+    ..surgeon = ''
+    ..agreedToTerms = false
+    ..stanfordAffiliated = false
+    ..drains = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -77,6 +88,8 @@ Map<String, dynamic> createUsersRecordData({
   int? userDrainNumber,
   String? surgeon,
   DateTime? surgeryDate,
+  bool? agreedToTerms,
+  bool? stanfordAffiliated,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -90,7 +103,10 @@ Map<String, dynamic> createUsersRecordData({
         ..phoneNumber = phoneNumber
         ..userDrainNumber = userDrainNumber
         ..surgeon = surgeon
-        ..surgeryDate = surgeryDate,
+        ..surgeryDate = surgeryDate
+        ..agreedToTerms = agreedToTerms
+        ..stanfordAffiliated = stanfordAffiliated
+        ..drains = null,
     ),
   );
 

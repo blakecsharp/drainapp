@@ -12,18 +12,18 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import 'login_copy_model.dart';
+export 'login_copy_model.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+class LoginCopyWidget extends StatefulWidget {
+  const LoginCopyWidget({Key? key}) : super(key: key);
 
   @override
-  _LoginWidgetState createState() => _LoginWidgetState();
+  _LoginCopyWidgetState createState() => _LoginCopyWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
-  late LoginModel _model;
+class _LoginCopyWidgetState extends State<LoginCopyWidget> {
+  late LoginCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
@@ -31,7 +31,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginModel());
+    _model = createModel(context, () => LoginCopyModel());
   }
 
   @override
@@ -44,8 +44,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -308,63 +306,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      final user = await signInAnonymously(context);
-                      if (user == null) {
-                        return;
-                      }
-
                       final usersUpdateData = createUsersRecordData(
-                        userDrainNumber: _model.countControllerValue,
                         surgeon: _model.dropDownValue,
+                        stanfordAffiliated: _model.checkboxValue,
                         surgeryDate: _model.calendarSelectedDay?.start,
+                        userDrainNumber: _model.countControllerValue,
                       );
                       await currentUserReference!.update(usersUpdateData);
-                      FFAppState().update(() {
-                        FFAppState().drainnumber = _model.countControllerValue!;
-                        FFAppState().drain1 = _model.countControllerValue! >= 1;
-                      });
-                      FFAppState().update(() {
-                        FFAppState().nonstanford = _model.checkboxValue!;
-                      });
-                      FFAppState().update(() {});
-                      FFAppState().update(() {
-                        FFAppState().drain2 = _model.countControllerValue! >= 2;
-                        FFAppState().drain3 = _model.countControllerValue! >= 3;
-                      });
-                      FFAppState().update(() {
-                        FFAppState().drain4 = _model.countControllerValue! >= 4;
-                        FFAppState().drain5 = _model.countControllerValue! >= 5;
-                      });
-                      FFAppState().update(() {
-                        FFAppState().drain6 = _model.countControllerValue! >= 6;
-                        FFAppState().addToDrains(true);
-                      });
-                      FFAppState().update(() {
-                        FFAppState()
-                            .addToDrains(_model.countControllerValue! >= 2);
-                        FFAppState()
-                            .addToDrains(_model.countControllerValue! >= 3);
-                      });
-                      FFAppState().update(() {
-                        FFAppState()
-                            .addToDrains(_model.countControllerValue! >= 4);
-                        FFAppState()
-                            .addToDrains(_model.countControllerValue! >= 5);
-                      });
-                      FFAppState().update(() {
-                        FFAppState()
-                            .addToDrains(_model.countControllerValue! >= 6);
-                      });
-
-                      final userInfoCreateData = createUserInfoRecordData(
-                        userid: currentUserUid,
-                        surgeon: _model.dropDownValue,
-                        drainnumber: _model.countControllerValue,
-                        surgerydate: _model.calendarSelectedDay?.start,
-                      );
-                      await UserInfoRecord.collection
-                          .doc()
-                          .set(userInfoCreateData);
                       await Navigator.push(
                         context,
                         MaterialPageRoute(

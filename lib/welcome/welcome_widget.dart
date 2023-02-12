@@ -1,7 +1,8 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
+import '../sign_in/sign_in_widget.dart';
+import '../sign_up/sign_up_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -37,8 +38,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -152,7 +151,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginWidget(),
+                            builder: (context) => SignUpWidget(),
                           ),
                         );
                       },
@@ -174,6 +173,35 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(30, 20, 30, 30),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignInWidget(),
+                      ),
+                    );
+                  },
+                  text: 'Login',
+                  options: FFButtonOptions(
+                    width: double.infinity,
+                    height: 50,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Outfit',
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),

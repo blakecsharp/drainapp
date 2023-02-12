@@ -81,6 +81,28 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
+    value = object.agreedToTerms;
+    if (value != null) {
+      result
+        ..add('agreed_to_terms')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.stanfordAffiliated;
+    if (value != null) {
+      result
+        ..add('stanford_affiliated')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.drainOutput;
+    if (value != null) {
+      result
+        ..add('drain_output')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(DrainOutputStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -139,6 +161,20 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.surgeryDate = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime?;
           break;
+        case 'agreed_to_terms':
+          result.agreedToTerms = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'stanford_affiliated':
+          result.stanfordAffiliated = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'drain_output':
+          result.drainOutput.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DrainOutputStruct)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -172,6 +208,12 @@ class _$UsersRecord extends UsersRecord {
   @override
   final DateTime? surgeryDate;
   @override
+  final bool? agreedToTerms;
+  @override
+  final bool? stanfordAffiliated;
+  @override
+  final BuiltList<DrainOutputStruct>? drainOutput;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -187,6 +229,9 @@ class _$UsersRecord extends UsersRecord {
       this.userDrainNumber,
       this.surgeon,
       this.surgeryDate,
+      this.agreedToTerms,
+      this.stanfordAffiliated,
+      this.drainOutput,
       this.ffRef})
       : super._();
 
@@ -210,6 +255,9 @@ class _$UsersRecord extends UsersRecord {
         userDrainNumber == other.userDrainNumber &&
         surgeon == other.surgeon &&
         surgeryDate == other.surgeryDate &&
+        agreedToTerms == other.agreedToTerms &&
+        stanfordAffiliated == other.stanfordAffiliated &&
+        drainOutput == other.drainOutput &&
         ffRef == other.ffRef;
   }
 
@@ -223,15 +271,21 @@ class _$UsersRecord extends UsersRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, email.hashCode),
-                                        displayName.hashCode),
-                                    photoUrl.hashCode),
-                                uid.hashCode),
-                            createdTime.hashCode),
-                        phoneNumber.hashCode),
-                    userDrainNumber.hashCode),
-                surgeon.hashCode),
-            surgeryDate.hashCode),
+                                    $jc(
+                                        $jc(
+                                            $jc(
+                                                $jc($jc(0, email.hashCode),
+                                                    displayName.hashCode),
+                                                photoUrl.hashCode),
+                                            uid.hashCode),
+                                        createdTime.hashCode),
+                                    phoneNumber.hashCode),
+                                userDrainNumber.hashCode),
+                            surgeon.hashCode),
+                        surgeryDate.hashCode),
+                    agreedToTerms.hashCode),
+                stanfordAffiliated.hashCode),
+            drainOutput.hashCode),
         ffRef.hashCode));
   }
 
@@ -247,6 +301,9 @@ class _$UsersRecord extends UsersRecord {
           ..add('userDrainNumber', userDrainNumber)
           ..add('surgeon', surgeon)
           ..add('surgeryDate', surgeryDate)
+          ..add('agreedToTerms', agreedToTerms)
+          ..add('stanfordAffiliated', stanfordAffiliated)
+          ..add('drainOutput', drainOutput)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -292,6 +349,22 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   DateTime? get surgeryDate => _$this._surgeryDate;
   set surgeryDate(DateTime? surgeryDate) => _$this._surgeryDate = surgeryDate;
 
+  bool? _agreedToTerms;
+  bool? get agreedToTerms => _$this._agreedToTerms;
+  set agreedToTerms(bool? agreedToTerms) =>
+      _$this._agreedToTerms = agreedToTerms;
+
+  bool? _stanfordAffiliated;
+  bool? get stanfordAffiliated => _$this._stanfordAffiliated;
+  set stanfordAffiliated(bool? stanfordAffiliated) =>
+      _$this._stanfordAffiliated = stanfordAffiliated;
+
+  ListBuilder<DrainOutputStruct>? _drainOutput;
+  ListBuilder<DrainOutputStruct> get drainOutput =>
+      _$this._drainOutput ??= new ListBuilder<DrainOutputStruct>();
+  set drainOutput(ListBuilder<DrainOutputStruct>? drainOutput) =>
+      _$this._drainOutput = drainOutput;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -312,6 +385,9 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _userDrainNumber = $v.userDrainNumber;
       _surgeon = $v.surgeon;
       _surgeryDate = $v.surgeryDate;
+      _agreedToTerms = $v.agreedToTerms;
+      _stanfordAffiliated = $v.stanfordAffiliated;
+      _drainOutput = $v.drainOutput?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -333,18 +409,34 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   UsersRecord build() => _build();
 
   _$UsersRecord _build() {
-    final _$result = _$v ??
-        new _$UsersRecord._(
-            email: email,
-            displayName: displayName,
-            photoUrl: photoUrl,
-            uid: uid,
-            createdTime: createdTime,
-            phoneNumber: phoneNumber,
-            userDrainNumber: userDrainNumber,
-            surgeon: surgeon,
-            surgeryDate: surgeryDate,
-            ffRef: ffRef);
+    _$UsersRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$UsersRecord._(
+              email: email,
+              displayName: displayName,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              phoneNumber: phoneNumber,
+              userDrainNumber: userDrainNumber,
+              surgeon: surgeon,
+              surgeryDate: surgeryDate,
+              agreedToTerms: agreedToTerms,
+              stanfordAffiliated: stanfordAffiliated,
+              drainOutput: _drainOutput?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'drainOutput';
+        _drainOutput?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'UsersRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

@@ -1,4 +1,3 @@
-import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -19,12 +18,7 @@ void main() async {
 
   await FlutterFlowTheme.initialize();
 
-  final appState = FFAppState(); // Initialize FFAppState
-
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
