@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>122956323683-mgvlscenr907mq9632rlv4tosad36muj.apps.googleusercontent.com</string>
+	<string>122956323683-52fijh7dmcm8uh6rujdca8d8sj1capkr.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.122956323683-mgvlscenr907mq9632rlv4tosad36muj</string>
+	<string>com.googleusercontent.apps.122956323683-52fijh7dmcm8uh6rujdca8d8sj1capkr</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>122956323683-inc1iqqblaujnpa8lq0f69nv3vncj82o.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB2mCMdYZvLl0zzY5a6gq5Z1rOETWWDCJw</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flutterflow.test</string>
+	<string>com.drainapplication</string>
 	<key>PROJECT_ID</key>
 	<string>drain-app-database</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:122956323683:ios:fb5990e7cd2a9947d15156</string>
+	<string>1:122956323683:ios:d77868f54086a420d15156</string>
 </dict>
 </plist>

@@ -81,6 +81,44 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
+    value = object.agreedToTerms;
+    if (value != null) {
+      result
+        ..add('agreed_to_terms')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.stanfordAffiliated;
+    if (value != null) {
+      result
+        ..add('stanford_affiliated')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.drains;
+    if (value != null) {
+      result
+        ..add('drains')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(DrainStruct)])));
+    }
+    value = object.entries;
+    if (value != null) {
+      result
+        ..add('entries')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(DrainEntryStruct)])));
+    }
+    value = object.drainsToRemove;
+    if (value != null) {
+      result
+        ..add('drainsToRemove')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(int)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -139,6 +177,32 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.surgeryDate = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime?;
           break;
+        case 'agreed_to_terms':
+          result.agreedToTerms = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'stanford_affiliated':
+          result.stanfordAffiliated = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'drains':
+          result.drains.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DrainStruct)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'entries':
+          result.entries.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DrainEntryStruct)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'drainsToRemove':
+          result.drainsToRemove.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(int)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -172,6 +236,16 @@ class _$UsersRecord extends UsersRecord {
   @override
   final DateTime? surgeryDate;
   @override
+  final bool? agreedToTerms;
+  @override
+  final bool? stanfordAffiliated;
+  @override
+  final BuiltList<DrainStruct>? drains;
+  @override
+  final BuiltList<DrainEntryStruct>? entries;
+  @override
+  final BuiltList<int>? drainsToRemove;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -187,6 +261,11 @@ class _$UsersRecord extends UsersRecord {
       this.userDrainNumber,
       this.surgeon,
       this.surgeryDate,
+      this.agreedToTerms,
+      this.stanfordAffiliated,
+      this.drains,
+      this.entries,
+      this.drainsToRemove,
       this.ffRef})
       : super._();
 
@@ -210,29 +289,34 @@ class _$UsersRecord extends UsersRecord {
         userDrainNumber == other.userDrainNumber &&
         surgeon == other.surgeon &&
         surgeryDate == other.surgeryDate &&
+        agreedToTerms == other.agreedToTerms &&
+        stanfordAffiliated == other.stanfordAffiliated &&
+        drains == other.drains &&
+        entries == other.entries &&
+        drainsToRemove == other.drainsToRemove &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc(
-            $jc(
-                $jc(
-                    $jc(
-                        $jc(
-                            $jc(
-                                $jc(
-                                    $jc($jc(0, email.hashCode),
-                                        displayName.hashCode),
-                                    photoUrl.hashCode),
-                                uid.hashCode),
-                            createdTime.hashCode),
-                        phoneNumber.hashCode),
-                    userDrainNumber.hashCode),
-                surgeon.hashCode),
-            surgeryDate.hashCode),
-        ffRef.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, email.hashCode);
+    _$hash = $jc(_$hash, displayName.hashCode);
+    _$hash = $jc(_$hash, photoUrl.hashCode);
+    _$hash = $jc(_$hash, uid.hashCode);
+    _$hash = $jc(_$hash, createdTime.hashCode);
+    _$hash = $jc(_$hash, phoneNumber.hashCode);
+    _$hash = $jc(_$hash, userDrainNumber.hashCode);
+    _$hash = $jc(_$hash, surgeon.hashCode);
+    _$hash = $jc(_$hash, surgeryDate.hashCode);
+    _$hash = $jc(_$hash, agreedToTerms.hashCode);
+    _$hash = $jc(_$hash, stanfordAffiliated.hashCode);
+    _$hash = $jc(_$hash, drains.hashCode);
+    _$hash = $jc(_$hash, entries.hashCode);
+    _$hash = $jc(_$hash, drainsToRemove.hashCode);
+    _$hash = $jc(_$hash, ffRef.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -247,6 +331,11 @@ class _$UsersRecord extends UsersRecord {
           ..add('userDrainNumber', userDrainNumber)
           ..add('surgeon', surgeon)
           ..add('surgeryDate', surgeryDate)
+          ..add('agreedToTerms', agreedToTerms)
+          ..add('stanfordAffiliated', stanfordAffiliated)
+          ..add('drains', drains)
+          ..add('entries', entries)
+          ..add('drainsToRemove', drainsToRemove)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -292,6 +381,33 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   DateTime? get surgeryDate => _$this._surgeryDate;
   set surgeryDate(DateTime? surgeryDate) => _$this._surgeryDate = surgeryDate;
 
+  bool? _agreedToTerms;
+  bool? get agreedToTerms => _$this._agreedToTerms;
+  set agreedToTerms(bool? agreedToTerms) =>
+      _$this._agreedToTerms = agreedToTerms;
+
+  bool? _stanfordAffiliated;
+  bool? get stanfordAffiliated => _$this._stanfordAffiliated;
+  set stanfordAffiliated(bool? stanfordAffiliated) =>
+      _$this._stanfordAffiliated = stanfordAffiliated;
+
+  ListBuilder<DrainStruct>? _drains;
+  ListBuilder<DrainStruct> get drains =>
+      _$this._drains ??= new ListBuilder<DrainStruct>();
+  set drains(ListBuilder<DrainStruct>? drains) => _$this._drains = drains;
+
+  ListBuilder<DrainEntryStruct>? _entries;
+  ListBuilder<DrainEntryStruct> get entries =>
+      _$this._entries ??= new ListBuilder<DrainEntryStruct>();
+  set entries(ListBuilder<DrainEntryStruct>? entries) =>
+      _$this._entries = entries;
+
+  ListBuilder<int>? _drainsToRemove;
+  ListBuilder<int> get drainsToRemove =>
+      _$this._drainsToRemove ??= new ListBuilder<int>();
+  set drainsToRemove(ListBuilder<int>? drainsToRemove) =>
+      _$this._drainsToRemove = drainsToRemove;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -312,6 +428,11 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _userDrainNumber = $v.userDrainNumber;
       _surgeon = $v.surgeon;
       _surgeryDate = $v.surgeryDate;
+      _agreedToTerms = $v.agreedToTerms;
+      _stanfordAffiliated = $v.stanfordAffiliated;
+      _drains = $v.drains?.toBuilder();
+      _entries = $v.entries?.toBuilder();
+      _drainsToRemove = $v.drainsToRemove?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -333,21 +454,43 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   UsersRecord build() => _build();
 
   _$UsersRecord _build() {
-    final _$result = _$v ??
-        new _$UsersRecord._(
-            email: email,
-            displayName: displayName,
-            photoUrl: photoUrl,
-            uid: uid,
-            createdTime: createdTime,
-            phoneNumber: phoneNumber,
-            userDrainNumber: userDrainNumber,
-            surgeon: surgeon,
-            surgeryDate: surgeryDate,
-            ffRef: ffRef);
+    _$UsersRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$UsersRecord._(
+              email: email,
+              displayName: displayName,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              phoneNumber: phoneNumber,
+              userDrainNumber: userDrainNumber,
+              surgeon: surgeon,
+              surgeryDate: surgeryDate,
+              agreedToTerms: agreedToTerms,
+              stanfordAffiliated: stanfordAffiliated,
+              drains: _drains?.build(),
+              entries: _entries?.build(),
+              drainsToRemove: _drainsToRemove?.build(),
+              ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'drains';
+        _drains?.build();
+        _$failedField = 'entries';
+        _entries?.build();
+        _$failedField = 'drainsToRemove';
+        _drainsToRemove?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'UsersRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint
